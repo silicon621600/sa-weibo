@@ -54,6 +54,7 @@ public class WeiboTest {
         int lastLogId = weiboOpLogDao.getLastInsertLogId();
         log.info("log表上次插入记录id为"+lastLogId);
         WeiboOpLog weiboOpLog = weiboOpLogDao.readLog(lastLogId);
+        Assert.assertNotNull(weiboOpLog);
         log.info("检查该对象 weiboOplog:"+weiboOpLog);
         Assert.assertEquals(userId,weiboOpLog.getUserId());
         Assert.assertEquals(weibo.getId(),weiboOpLog.getWeiboId());

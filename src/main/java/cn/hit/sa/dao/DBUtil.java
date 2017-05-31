@@ -9,7 +9,7 @@ public class DBUtil {
     public static Connection getConn() {  
         
         String driver = "com.mysql.jdbc.Driver";  
-        String url = "jdbc:mysql://120.24.42.28:3306/weibo_db";
+        String url = "jdbc:mysql://120.24.42.28:8066/weibo_db";
         String username = "sa_weibo";
         String password = "123";
         Connection conn = null;  
@@ -23,6 +23,5 @@ public class DBUtil {
         }  
         return conn;  
     }
-    
 
 }
