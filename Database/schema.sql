@@ -1,5 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `weibo_db` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `weibo_db`;
+
 -- MySQL dump 10.13  Distrib 5.6.24, for osx10.8 (x86_64)
 --
 -- Host: 120.24.42.28    Database: weibo_db
