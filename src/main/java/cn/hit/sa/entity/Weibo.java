@@ -1,6 +1,8 @@
 package cn.hit.sa.entity;
 
-public class Weibo {
+import java.io.Serializable;
+
+public class Weibo implements Serializable {
 	private int id;
 	private String content;
 	private long pubtime;
