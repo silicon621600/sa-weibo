@@ -9,9 +9,9 @@ CREATE TABLE MYCAT_SEQUENCE (
 )  ENGINE=INNODB;
 
 -- 插入序列
-INSERT INTO MYCAT_SEQUENCE(name,current_value,increment) VALUES ('WEIBO', 0, 1);
-INSERT INTO MYCAT_SEQUENCE(name,current_value,increment) VALUES ('LOG', 0, 1);
-INSERT INTO MYCAT_SEQUENCE(name,current_value,increment) VALUES ('USER', 0, 1);
+INSERT INTO MYCAT_SEQUENCE(name,current_value,increment) VALUES ('WEIBO', 10000000, 1);
+INSERT INTO MYCAT_SEQUENCE(name,current_value,increment) VALUES ('LOG', 10000000, 1);
+INSERT INTO MYCAT_SEQUENCE(name,current_value,increment) VALUES ('USER', 10000000, 1);
 
 
 -- 创建function

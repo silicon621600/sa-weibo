@@ -23,11 +23,11 @@ public class WeiboOpLogDao {
         return instance;
     }
 
+    private DBUtil dbUtil = DBUtil.getInstance();
 
 
     public void addLog(WeiboOpLog weiboOpLog){
-        Connection conn = DBUtil.getConn();
-        int i = 0;
+        Connection conn = dbUtil.getConn();
         String sql = "insert into log(type, time, userId,weiboId) values(?,?,?,?)";
         PreparedStatement pstmt;
         try {
@@ -36,17 +36,15 @@ public class WeiboOpLogDao {
             pstmt.setLong(2,weiboOpLog.getTime());
             pstmt.setInt(3,weiboOpLog.getUserId());
             pstmt.setInt(4,weiboOpLog.getWeiboId());
-            i = pstmt.executeUpdate();
-            System.out.println(i);
+            pstmt.executeUpdate();
             pstmt.close();
-            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public WeiboOpLog readLog(int id){
-        Connection conn = DBUtil.getConn();
+        Connection conn = dbUtil.getConn();
         WeiboOpLog ret = null;
         String sql = "select * from log where id=?"; //mysql函数 last_insert_id()
         PreparedStatement pstmt;
@@ -63,7 +61,6 @@ public class WeiboOpLogDao {
                 ret.setWeiboId(rs.getInt("weiboId"));
             }
             pstmt.close();
-            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -71,7 +68,7 @@ public class WeiboOpLogDao {
     }
 
     public int getLastInsertLogId(){
-        Connection conn = DBUtil.getConn();
+        Connection conn = dbUtil.getConn();
         int ret = -1;
         String sql = "select max(id) as last_id from log"; //mysql函数 last_insert_id()
         PreparedStatement pstmt;
@@ -82,7 +79,6 @@ public class WeiboOpLogDao {
                 ret= rs.getInt(1);
             }
             pstmt.close();
-            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

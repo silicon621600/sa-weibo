@@ -15,9 +15,11 @@ import java.sql.Statement;
 public class Utils {
     private static final Logger log = LoggerFactory.getLogger(Utils.class);
 
+    private static DBUtil dbUtil = DBUtil.getInstance();
+
     public static void cleanEnv(){
         log.info("清空数据库");
-        Connection connection = DBUtil.getConn();
+        Connection connection = dbUtil.getConn();
         try {
             Statement statement = connection.createStatement();
             statement.addBatch("delete from user");
@@ -30,11 +32,14 @@ public class Utils {
             log.info("删除log表记录"+res[2]+"条");
             log.info("删除count表记录"+res[2]+"条");
             statement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        log.info("清空Memcached:"+MemcachedUtils.mcc.flushAll());
+        log.info("清空Memcached:"+MemcachedUtils.flushAll());
+    }
+
+    public static void closeConn(){
+        dbUtil.closeConn();
     }
 }

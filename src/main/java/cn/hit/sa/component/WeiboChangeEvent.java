@@ -60,4 +60,14 @@ public class WeiboChangeEvent {
 	public void setTime(long time) {
 		this.time = time;
 	}
+
+	@Override
+	public String toString() {
+		return "WeiboChangeEvent{" +
+				"type=" + type +
+				", weibo=" + weibo +
+				", userId=" + userId +
+				", time=" + time +
+				'}';
+	}
 }

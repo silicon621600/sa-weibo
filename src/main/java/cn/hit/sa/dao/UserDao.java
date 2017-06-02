@@ -12,6 +12,7 @@ import java.sql.SQLException;
 public class UserDao {
 
 
+
     private static UserDao instance;
     private UserDao() {}
     public static synchronized UserDao getInstance(){
@@ -21,10 +22,10 @@ public class UserDao {
         return instance;
     }
 
+    private DBUtil dbUtil = DBUtil.getInstance();
     //添加用户
     public void addUser(User user){
-        Connection conn = DBUtil.getConn();
-        int i = 0;
+        Connection conn = dbUtil.getConn();
         String sql = "insert into user (username,email,telephone,password) values(?,?,?,?)";
         PreparedStatement pstmt;
         try {
@@ -33,10 +34,8 @@ public class UserDao {
             pstmt.setString(2, user.getEmail());
             pstmt.setString(3, user.getTelephone());
             pstmt.setString(4, user.getPassword());
-            i = pstmt.executeUpdate();
-            System.out.println(i);
+            pstmt.executeUpdate();
             pstmt.close();
-            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

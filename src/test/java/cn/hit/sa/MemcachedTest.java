@@ -2,10 +2,7 @@ package cn.hit.sa;
 
 import cn.hit.sa.entity.Weibo;
 import cn.hit.sa.memcached.MemcachedUtils;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 
 /**
  * Created by guwei on 17/5/31.
@@ -16,6 +13,10 @@ public class MemcachedTest {
     public  void before(){
         Utils.cleanEnv();
     }
+    @After
+    public  void after(){
+        Utils.closeConn();
+    }
 
     @Test
     public void testWeiboObject(){
@@ -24,8 +25,12 @@ public class MemcachedTest {
         weibo.setAuthor(1);
         weibo.setContent("test");
         weibo.setPubtime(312312);
-        MemcachedUtils.mcc.set("xxx",weibo);
-        Weibo weibo1 = (Weibo)MemcachedUtils.mcc.get("xxx");
+        MemcachedUtils.setWeibo("xxx",weibo);
+        Weibo weibo1 = MemcachedUtils.getWeibo("xxx");
         Assert.assertEquals(weibo,weibo1);
+
+        MemcachedUtils.flushAll();
+        weibo1 = MemcachedUtils.getWeibo("xxx");
+        Assert.assertNull(weibo1);
     }
 }

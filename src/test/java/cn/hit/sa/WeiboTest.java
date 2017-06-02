@@ -30,7 +30,10 @@ public class WeiboTest {
         Utils.cleanEnv();
     }
 
-
+    @After
+    public  void after(){
+        Utils.closeConn();
+    }
     private void checkWeiboOpLog(int userId,int type,Weibo weibo){
         WeiboOpLogDao weiboOpLogDao = WeiboOpLogDao.getInstance();
         //检查操作日志
