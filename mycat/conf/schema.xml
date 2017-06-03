@@ -3,26 +3,23 @@
 <mycat:schema xmlns:mycat="http://io.mycat/">
 
 
-  <schema name="weibo_db" checkSQLschema="true" sqlMaxLimit="100" dataNode="mydn1">
+    <schema name="weibo_db" checkSQLschema="true" sqlMaxLimit="100" dataNode="mydn1">
 
         <table name="user" primaryKey="id" autoIncrement="true" dataNode="mydn1,mydn2" rule="myrule1"/>
         <table name="log" primaryKey="id" autoIncrement="true" dataNode="mydn1,mydn2" rule="myrule1"/>
         <table name="weibo" primaryKey="id" autoIncrement="true" dataNode="mydn1,mydn2" rule="myrule1"/>
         <table name="count" primaryKey="weiboId" dataNode="mydn1,mydn2" rule="myrule2"/>
-</schema>
+    </schema>
 
 
+    <dataNode name="mydn1" dataHost="mydbhost1" database="weibo_db1"/>
+    <dataNode name="mydn2" dataHost="mydbhost1" database="weibo_db2"/>
 
+    <dataHost name="mydbhost1" writeType="0" switchType="1" slaveThreshold="100" balance="1" dbType="mysql" maxCon="10"
+              minCon="1" dbDriver="native">
+        <heartbeat>show status like 'wsrep%'</heartbeat>
+        <writeHost host="hostM1" url="127.0.0.1:3306" user="sa_weibo" password="123">
+        </writeHost>
+    </dataHost>
 
-	
-
-	<dataNode name="mydn1" dataHost="mydbhost1" database="weibo_db1"/>
-        <dataNode name="mydn2" dataHost="mydbhost1" database="weibo_db2"/>
-
-	<dataHost name="mydbhost1" writeType="0" switchType="1" slaveThreshold="100" balance="1" dbType="mysql" maxCon="10" minCon="1" dbDriver="native">
-    <heartbeat>show status like 'wsrep%'</heartbeat>
-    <writeHost host="hostM1" url="127.0.0.1:3306" user="sa_weibo" password="123" >
-    </writeHost> 
-  </dataHost>
-	
 </mycat:schema>

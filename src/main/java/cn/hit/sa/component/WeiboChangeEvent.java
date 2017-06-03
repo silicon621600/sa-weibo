@@ -7,69 +7,69 @@ import java.io.Serializable;
 /**
  * 事件的语义 是  [userId]的用户 在[time]时刻 对[weibo]对象表示的微博进行了 [type]类型的操作
  */
-public class WeiboChangeEvent implements Serializable{
-	/*
-	 * 不同改变类型的常量
-	 */
-	public static final int ADD = 0;
-	public static final int READ = 1;
-	public static final int UPDATE = 2;
-	public static final int DELETE = 3;
-	
-	private int type;
-	private Weibo weibo;
-	private int userId;
-	private long time;
+public class WeiboChangeEvent implements Serializable {
+    /*
+     * 不同改变类型的常量
+     */
+    public static final int ADD = 0;
+    public static final int READ = 1;
+    public static final int UPDATE = 2;
+    public static final int DELETE = 3;
 
-	public WeiboChangeEvent() {
-	}
+    private int type;
+    private Weibo weibo;
+    private int userId;
+    private long time;
 
-	public WeiboChangeEvent(int type, Weibo weibo, int userId) {
-		this.type = type;
-		this.weibo = weibo;
-		this.userId = userId;
-		this.time = System.currentTimeMillis();
-	}
+    public WeiboChangeEvent() {
+    }
 
-	public void setType(int type){
-		type = type;
-	}
-	
-	public int getType(){
-		return type;
-	}
+    public WeiboChangeEvent(int type, Weibo weibo, int userId) {
+        this.type = type;
+        this.weibo = weibo;
+        this.userId = userId;
+        this.time = System.currentTimeMillis();
+    }
 
-	public Weibo getWeibo() {
-		return weibo;
-	}
+    public int getType() {
+        return type;
+    }
 
-	public void setWeibo(Weibo weibo) {
-		this.weibo = weibo;
-	}
+    public void setType(int type) {
+        type = type;
+    }
 
-	public int getUserId() {
-		return userId;
-	}
+    public Weibo getWeibo() {
+        return weibo;
+    }
 
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
+    public void setWeibo(Weibo weibo) {
+        this.weibo = weibo;
+    }
 
-	public long getTime() {
-		return time;
-	}
+    public int getUserId() {
+        return userId;
+    }
 
-	public void setTime(long time) {
-		this.time = time;
-	}
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
-	@Override
-	public String toString() {
-		return "WeiboChangeEvent{" +
-				"type=" + type +
-				", weibo=" + weibo +
-				", userId=" + userId +
-				", time=" + time +
-				'}';
-	}
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    @Override
+    public String toString() {
+        return "WeiboChangeEvent{" +
+                "type=" + type +
+                ", weibo=" + weibo +
+                ", userId=" + userId +
+                ", time=" + time +
+                '}';
+    }
 }

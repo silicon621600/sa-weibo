@@ -1,30 +1,35 @@
 package cn.hit.sa.activemq;
 
-import cn.hit.sa.component.WeiboChangeEvent;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import javax.jms.*;
 import javax.jms.Connection;
-import java.sql.*;
+import javax.jms.ConnectionFactory;
+import javax.jms.JMSException;
 
 /**
  * Created by guwei on 17/6/2.
  */
 public class ActiveMQUtils {
 
-    private ActiveMQUtils(){}
     private static ActiveMQUtils instance;
-    public static synchronized ActiveMQUtils getInstance(){
-        if (instance==null){
-            instance=new ActiveMQUtils();
+    private Connection connection = null;
+    private static final Logger log = LoggerFactory.getLogger(ActiveMQUtils.class);
+
+    private ActiveMQUtils() {
+    }
+
+    public static synchronized ActiveMQUtils getInstance() {
+        if (instance == null) {
+            instance = new ActiveMQUtils();
         }
         return instance;
     }
-    private Connection connection = null;
 
     public Connection getConnection() {
-        if (connection!=null) return connection;
+        if (connection != null) return connection;
         // ConnectionFactory ：连接工厂，JMS 用它创建连接
         ConnectionFactory connectionFactory;
         // Connection ：JMS 客户端到JMS Provider 的连接
@@ -39,18 +44,20 @@ public class ActiveMQUtils {
             connection.start();
         } catch (Exception e) {
             e.printStackTrace();
+            log.error("获取ActiveMQ连接出错:"+e);
         }
-        return  connection;
+        return connection;
     }
 
-    public void closeConn(){
-        if (connection!=null){
+    public void closeConn() {
+        if (connection != null) {
             try {
                 connection.close();
             } catch (JMSException e) {
                 e.printStackTrace();
-            }finally {
-                connection=null;
+                log.error("关闭activeMQ连接出错:",e);
+            } finally {
+                connection = null;
             }
         }
     }

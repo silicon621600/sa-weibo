@@ -1,7 +1,6 @@
 package cn.hit.sa.bootstrap;
 
 
-
 import cn.hit.sa.activemq.ActiveMQUtils;
 import cn.hit.sa.component.WeiboChangeEvent;
 import cn.hit.sa.dao.WeiboOpLogDao;
@@ -17,11 +16,12 @@ import javax.jms.*;
  * Created by guwei on 17/6/2.
  */
 public class LogServerMain {
+    private static final Logger log = LoggerFactory.getLogger(LogServerMain.class);
     private static ActiveMQUtils activeMQUtils = ActiveMQUtils.getInstance();
     private static WeiboOpLogDao weiboOpLogDao = WeiboOpLogDao.getInstance();
-    private static final Logger log = LoggerFactory.getLogger(LogServerMain.class);
     private static Gson gson = new GsonBuilder().create();
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         Connection conn = activeMQUtils.getConnection();
 
         javax.jms.Connection connection = ActiveMQUtils.getInstance().getConnection();
@@ -34,7 +34,6 @@ public class LogServerMain {
             Destination destination = session.createQueue("WeiboOpQueue");
 
 
-
             MessageConsumer consumer = session.createConsumer(destination);
 
             while (true) {
@@ -42,15 +41,16 @@ public class LogServerMain {
                 //ObjectMessage message = (ObjectMessage) consumer.receive(100000);
                 TextMessage message = (TextMessage) consumer.receive();
                 if (null != message) {
-                    WeiboChangeEvent event = (WeiboChangeEvent) gson.fromJson(message.getText(),WeiboChangeEvent.class);
-                    log.info("接收到WeiboChangeEvent对象:"+event);
-                    weiboOpLogDao.addLog(new WeiboOpLog(event.getType(),event.getTime(),event.getUserId(),event.getWeibo().getId()));
+                    WeiboChangeEvent event = (WeiboChangeEvent) gson.fromJson(message.getText(), WeiboChangeEvent.class);
+                    log.info("接收到WeiboChangeEvent对象:" + event);
+                    weiboOpLogDao.addLog(new WeiboOpLog(event.getType(), event.getTime(), event.getUserId(), event.getWeibo().getId()));
                 }
             }
 
         } catch (JMSException e) {
             e.printStackTrace();
-        }finally {
+            log.error("日志服务器执行错误:",e);
+        } finally {
             activeMQUtils.closeConn();
         }
     }

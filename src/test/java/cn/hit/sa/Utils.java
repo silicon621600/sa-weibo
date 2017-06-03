@@ -20,7 +20,7 @@ public class Utils {
 
     private static ActiveMQUtils activeMQUtils = ActiveMQUtils.getInstance();
 
-    public static void cleanEnv(){
+    public static void cleanEnv() {
         log.info("清空数据库");
         Connection connection = dbUtil.getConn();
         try {
@@ -30,19 +30,19 @@ public class Utils {
             statement.addBatch("delete from weibo");
             statement.addBatch("delete from count");
             int[] res = statement.executeBatch();
-            log.info("删除user表记录"+res[0]+"条");
-            log.info("删除weibo表记录"+res[1]+"条");
-            log.info("删除log表记录"+res[2]+"条");
-            log.info("删除count表记录"+res[2]+"条");
+            log.info("删除user表记录" + res[0] + "条");
+            log.info("删除weibo表记录" + res[1] + "条");
+            log.info("删除log表记录" + res[2] + "条");
+            log.info("删除count表记录" + res[2] + "条");
             statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        log.info("清空Memcached:"+MemcachedUtils.flushAll());
+        log.info("清空Memcached:" + MemcachedUtils.flushAll());
     }
 
-    public static void closeConn(){
+    public static void closeConn() {
         dbUtil.closeConn();
         activeMQUtils.closeConn();
     }

@@ -12,7 +12,7 @@ public class WeiboOpLog {
     private int weiboId;
 
 
-    public WeiboOpLog(int type, long time, int userId,int weiboId) {
+    public WeiboOpLog(int type, long time, int userId, int weiboId) {
         this.type = type;
         this.time = time;
         this.userId = userId;
