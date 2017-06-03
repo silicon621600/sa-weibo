@@ -1,5 +1,6 @@
 package cn.hit.sa;
 
+import cn.hit.sa.activemq.ActiveMQUtils;
 import cn.hit.sa.dao.DBUtil;
 import cn.hit.sa.memcached.MemcachedUtils;
 import org.slf4j.Logger;
@@ -16,6 +17,8 @@ public class Utils {
     private static final Logger log = LoggerFactory.getLogger(Utils.class);
 
     private static DBUtil dbUtil = DBUtil.getInstance();
+
+    private static ActiveMQUtils activeMQUtils = ActiveMQUtils.getInstance();
 
     public static void cleanEnv(){
         log.info("清空数据库");
@@ -41,5 +44,6 @@ public class Utils {
 
     public static void closeConn(){
         dbUtil.closeConn();
+        activeMQUtils.closeConn();
     }
 }

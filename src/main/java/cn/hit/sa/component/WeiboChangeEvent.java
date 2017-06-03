@@ -2,10 +2,12 @@ package cn.hit.sa.component;
 
 import cn.hit.sa.entity.Weibo;
 
+import java.io.Serializable;
+
 /**
  * 事件的语义 是  [userId]的用户 在[time]时刻 对[weibo]对象表示的微博进行了 [type]类型的操作
  */
-public class WeiboChangeEvent {
+public class WeiboChangeEvent implements Serializable{
 	/*
 	 * 不同改变类型的常量
 	 */
